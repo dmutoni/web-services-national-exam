@@ -5,12 +5,15 @@ import router from './src/routers/user.routes.js';
 import connectToDb from './config/dbConfig.js';
 import dotenv from 'dotenv';
 import authRoute from './src/routers/auth.routes.js';
-import meterRoute from './src/routers/meter.route.js';
 import { Swaggiffy } from 'swaggiffy';
 import cors from 'cors';
-import './src/models/meter.model.js';
-import candidateRouter from './src/routers/candidate.routes.js';
-import voteRouter from './src/routers/vote.routes.js';
+import vehicleRouter from './src/routers/vehicle.routes.js';
+import carOwnerRouter from './src/routers/carOwner.routes.js';
+import {
+    protect,
+    authorize
+} from './src/middlewares/auth.middleware.js';
+
 
 const app = express();
 
@@ -29,11 +32,10 @@ await connectToDb();
 app.get('/', (req, res) => {
     return res.status(200).json({message: 'Welcome to the voting system api'});
 })
-app.use('/api/v1/users', router);
+app.use('/api/v1/users',[protect, authorize('Admin')], router);
 app.use('/api/v1/auth', authRoute);
-app.use('/api/v1/meters', meterRoute);
-app.use('/api/v1/candidates', candidateRouter);
-app.use('/api/v1/votes', voteRouter);
+app.use('/api/v1/vehicles',[protect, authorize('Admin')],vehicleRouter);
+app.use('/api/v1/car-owners',[protect, authorize('Admin')], carOwnerRouter);
 
 const port = 5050;
 
