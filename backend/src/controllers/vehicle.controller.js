@@ -59,6 +59,7 @@ const getAllVehicles = async (req,res) => {
 }
 
 const getAllVehiclesAndTheirOwners = async (req,res) => {
+    console.log('reached');
     try {
         const vehicles = await Vehicle.find({}).populate('owner');
         return res.status(200).json({

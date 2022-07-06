@@ -1,25 +1,27 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Vehicle from '../../../backend/src/models/vehicle.model';
-import Candidate from "../components/candidate";
+import vehicle from '../components/vehicle';
+import Candidate from "../components/vehicle";
 import Header from "../components/header";
-import { getCandidates } from "../services/candidate.service";
+import { getVehicles } from "../services/candidate.service";
+import Vehicle from '../components/vehicle';
+import Details from './details';
 
 export default function Home() {
   const [vehicles, setVehicles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // useEffect(() => {
-  //   getCandidates()
-  //     .then((info) => {
-  //       setCandidates(info.data);
-  //       console.log(candidates);
-  //       setIsLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, []);
+  useEffect(() => {
+    getVehicles()
+      .then((info) => {
+        setVehicles(info.data);
+        console.log(info.data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <div className="col-12">
@@ -56,11 +58,14 @@ export default function Home() {
           </div>
         ) : (
           vehicles.map((vehicle) => (
-            <Vehicle
+            <Details
               key={vehicle._id}
-              candidateName={vehicle.candidateName}
-              id={vehicle.id}
-              candidateImage={vehicle.candidateImage}
+              chasisNumber={vehicle.chasisNumber}
+              manufactureCompany={vehicle.manufactureCompany}
+              manufactureYear={vehicle.manufactureYear}
+              modelName={vehicle.modelName}
+              price={vehicle.price}
+              ownerNames={vehicle.owner.ownerNames}
             />
           ))
         )}

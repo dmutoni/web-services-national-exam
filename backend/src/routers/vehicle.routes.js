@@ -13,9 +13,9 @@ vehicleRouter.post("/", [protect, authorize('Admin')], saveVehicle);
 
 vehicleRouter.route('/:id').get(getVehicle);
 
-vehicleRouter.route('/').get(getAllVehicles);
+// vehicleRouter.route('/').get(getAllVehicles);
 
-vehicleRouter.route('/vehicle-owners').get(getAllVehiclesAndTheirOwners);
+vehicleRouter.route('/').get(getAllVehiclesAndTheirOwners);
 
 registerDefinition(vehicleRouter, {tags: 'Vehicle', basePath: '/api/v1/vehicles', mappedSchema: 'Vehicle'});
 

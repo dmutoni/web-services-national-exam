@@ -360,52 +360,6 @@
           ]
         }
       },
-      "/api/v1/vehicles/vehicle-owners": {
-        "get": {
-          "tags": [
-            "Vehicle"
-          ],
-          "summary": "",
-          "description": "",
-          "parameters": [],
-          "consumes": [
-            "application/json"
-          ],
-          "produces": [
-            "application/json"
-          ],
-          "responses": {
-            "200": {
-              "description": "OK",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/Vehicle"
-                }
-              }
-            },
-            "500": {
-              "description": "Internal Server Error",
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "error": {
-                    "type": "string",
-                    "example": "Internal Server Error"
-                  }
-                }
-              }
-            }
-          },
-          "security": [
-            {
-              "Bearer": [
-                "global"
-              ]
-            }
-          ]
-        }
-      },
       "/api/v1/car-owners": {
         "post": {
           "tags": [

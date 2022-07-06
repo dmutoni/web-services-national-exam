@@ -1,8 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "../components/sidebar";
+import { getVehicles } from '../services/candidate.service';
 
 export default function Dashboard() {
+
+  const [vehicles, setVehicles] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    getVehicles()
+      .then((info) => {
+        setVehicles(info.data);
+        console.log(info.data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   return (
     <div className="col-12 d-flex flex-row gap-4">
       <div className="col-2 ">
@@ -10,10 +27,10 @@ export default function Dashboard() {
       </div>
       <div className="col-12 col-lg-8 mt-5">
         <div className="d-block d-lg-flex flex-row justify-content-between ">
-          <h2>All candidates</h2>
+          <h2>All vehicles</h2>
           <Link to="/add-candidate">
             <button type="button" className="btn bg-app-primary bg-text-color ">
-              Add candidate
+              Add vehicle
             </button>
           </Link>
         </div>
@@ -21,55 +38,44 @@ export default function Dashboard() {
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">First</th>
-              <th scope="col">Last</th>
-              <th scope="col">Handle</th>
-              <th scope="col">Action</th>
+              <th scope="col">Chasis number</th>
+              <th scope="col">Manufacture company</th>
+              <th scope="col">Manufacture year</th>
+              <th scope="col">Price</th>
+              <th scope="col">Vehicle Plate NUmber</th>
+              <th scope="col">Owner names</th>
+              <th scope="col" rowSpan='2'>Action</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-              <td className="d-flex fex-row gap-2">
-                <button type="button" className="btn btn-primary">
-                  Edit
-                </button>
-                <button type="button" className="btn btn-danger">
-                  Delete
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-              <td className="d-flex fex-row gap-2">
-                <button type="button" className="btn btn-primary">
-                  Edit
-                </button>
-                <button type="button" className="btn btn-danger">
-                  Delete
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td colSpan="2">Larry the Bird</td>
-              <td>@twitter</td>
-              <td className="d-flex fex-row gap-2">
-                <button type="button" className="btn btn-primary">
-                  Edit
-                </button>
-                <button type="button" className="btn btn-danger">
-                  Delete
-                </button>
-              </td>
-            </tr>
-          </tbody>
+          {isLoading ? (
+            <div className="d-flex justify-content-center align-content-center">
+              <div className="spinner-border text-primary" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>
+            </div>
+          ) : (
+            vehicles.map((vehicle) => (
+              <tbody>
+                <tr>
+                  <th scope="row">{vehicle._id}</th>
+                  <td>{vehicle.chasisNumber}</td>
+                  <td>{vehicle.manufactureCompany}</td>
+                  <td>{vehicle.manufactureYear}</td>
+                  <td>{vehicle.price}</td>
+                  <td>{vehicle.vehiclePlateNumber}</td>
+                  <td>{vehicle.owner.ownerNames}</td>
+                  <td className="d-flex fex-row gap-2">
+                    <button type="button" className="btn btn-primary">
+                      Edit
+                    </button>
+                    <button type="button" className="btn btn-danger">
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            ))
+          )}
         </table>
       </div>
     </div>
