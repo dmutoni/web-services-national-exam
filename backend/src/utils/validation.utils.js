@@ -1,7 +1,8 @@
 import Joi from 'joi';
 
 const schema = Joi.object({
-    names: Joi.string().alphanum().min(3).max(30).required(),
+    // id: Joi.string(),
+    names: Joi.string().min(3).max(30).required(),
     password: Joi.string().min(8).required(),
     email: Joi.string().email({
         minDomainSegments: 2,
@@ -10,7 +11,7 @@ const schema = Joi.object({
         }
     }).required(),
     phone: Joi.string().required(),
-    national_id: Joi.string().required(),
+    national_id: Joi.string().required().min(16).max(16),
     role: Joi.string().valid('Standard', 'Candidate', 'Admin').default('Admin')
 })
 

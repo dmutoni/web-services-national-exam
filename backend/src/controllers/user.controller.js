@@ -5,13 +5,13 @@ import bcrypt from 'bcryptjs';
 
 const createUser = async (req, res) => {
     try {
-        const {
-            error
-        } = schema.validate(req.body);
-        if (error) return res.status(400).json({
-            message: error.details[0].message,
-            success: false
-        })
+        // const {
+        //     error
+        // } = schema.validate(req.body);
+        // if (error) return res.status(400).json({
+        //     message: error.details[0].message,
+        //     success: false
+        // })
         const oldUser = await User.findOne({
             email: req.body.email
         });
@@ -21,11 +21,11 @@ const createUser = async (req, res) => {
         });
         const hashedPassword = await hashPassword(req.body.password);
         const user = new User({
-            name: req.body.name,
+            names: req.body.names,
             email: req.body.email,
             password: hashedPassword,
-            gender: req.body.gender,
-            votes: 0,
+            phone: req.body.phone,
+            national_id: req.body.national_id,
         });
         const savedUser = await user.save();
         if (savedUser) return res.status(201).json({
