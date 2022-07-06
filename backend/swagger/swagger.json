@@ -599,8 +599,8 @@
             "required": true
           },
           "chasisNumber": {
-            "type": "number",
-            "example": 0
+            "type": "string",
+            "example": "string"
           },
           "manufactureCompany": {
             "type": "string",
@@ -615,8 +615,8 @@
             "example": "string"
           },
           "vehiclePlateNumber": {
-            "type": "number",
-            "example": 0
+            "type": "string",
+            "example": "string"
           },
           "modelName": {
             "type": "string",

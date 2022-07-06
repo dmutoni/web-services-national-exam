@@ -7,7 +7,7 @@ export default function Header() {
       <nav className="navbar navbar-expand-lg navbar-light">
         <div className="container-fluid">
           <Link to={"/"} className="text-decoration-none">
-            <span className="bg-text-color fw-bold fs-2">Vote pro</span>
+            <span className="bg-text-color fw-bold fs-2">RRA</span>
           </Link>
           <button
             className="navbar-toggler"

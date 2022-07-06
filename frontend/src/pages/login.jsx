@@ -1,48 +1,55 @@
+import axios from 'axios';
 import React, { useContext } from "react";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "../components/header";
-import { AuthContext } from "../context/GlobalContext";
-import { login } from "../services/authentication.service";
+import jwtDecode from "jwt-decode";
+import { Toast } from '../components/Toast';
+import toast, { Toaster } from 'react-hot-toast';
+import { AppContext, GlobalContext } from '../context/GlobalContext';
 
 export default function Login() {
   const [isLoading, setIsLoading] = React.useState(true);
+  const [error, setError] = React.useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { setUser, setIsLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    login({ email, password })
-      .then((resp) => {
-        setUser(resp.data.user);
-        setIsLoggedIn(true);
-        console.log(resp);
-        setIsLoading(false);
+    try {
+      const response = await axios.post(
+        "http://localhost:5050/api/v1/auth",
+        { email, password }
+      );
+        const token = response.data.token;
+        localStorage.setItem("token", token);
+        const user = jwtDecode(token);
+        console.log(user);
+        localStorage.setItem("user", JSON.stringify(user));
         navigate("/dashboard");
-      })
-      .catch((error) => {
-        alert(error.response.data.message);
-        console.log(error);
-      });
+    } catch (error) {
+      setError(true);
+    }
   };
 
   return (
     <div className="col-12">
       <Header />
+      {
+        !error ? (
+          <Toaster status={"error"} message={"Invalid credentials"} />
+        ) : (
+          <Toaster status={"success"} message={"Login successful"} />
+        )
+      }
+
+
       <div className="d-block col-12 col-lg-4 mx-auto border  p-5 mt-5">
         <p className="font-bold fs-1">Login</p>
         <form
           onSubmit={
             handleSubmit
-
-            // function to set token to localstorage
-            // localStorage.setItem("token", data.token);
-            // set user into global auth context
-            // setAuth(data.user);
-            // redirect to home page
-            // navigate("/");
           }
         >
           <div className="mb-3">

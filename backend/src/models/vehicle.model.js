@@ -6,7 +6,7 @@ mongoose.Promise = global.Promise;
 const vehicleSchema = new mongoose.Schema({
     id: mongoose.Schema.Types.ObjectId,
     chasisNumber: {
-        type: Number,
+        type: String,
         required: true,
     },
     manufactureCompany: {
@@ -22,7 +22,7 @@ const vehicleSchema = new mongoose.Schema({
         required: true
     },
     vehiclePlateNumber: {
-        type: Number,
+        type: String,
         required: true
     },
     modelName: {

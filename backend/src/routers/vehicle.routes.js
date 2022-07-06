@@ -1,12 +1,15 @@
 import express from 'express';
 import { registerDefinition } from 'swaggiffy';
 import { getAllVehicles, getAllVehiclesAndTheirOwners, getVehicle, saveVehicle } from '../controllers/vehicle.controller.js';
-
+import {
+    protect,
+    authorize
+} from '../middlewares/auth.middleware.js'
 const vehicleRouter = express.Router({
     mergeParams: true
 });
 
-vehicleRouter.route("/").post(saveVehicle);
+vehicleRouter.post("/", [protect, authorize('Admin')], saveVehicle);
 
 vehicleRouter.route('/:id').get(getVehicle);
 

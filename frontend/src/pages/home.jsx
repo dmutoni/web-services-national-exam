@@ -1,24 +1,25 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Vehicle from '../../../backend/src/models/vehicle.model';
 import Candidate from "../components/candidate";
 import Header from "../components/header";
 import { getCandidates } from "../services/candidate.service";
 
 export default function Home() {
-  const [candidates, setCandidates] = useState([]);
+  const [vehicles, setVehicles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    getCandidates()
-      .then((info) => {
-        setCandidates(info.data);
-        console.log(candidates);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   getCandidates()
+  //     .then((info) => {
+  //       setCandidates(info.data);
+  //       console.log(candidates);
+  //       setIsLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
 
   return (
     <div className="col-12">
@@ -26,10 +27,7 @@ export default function Home() {
       <div className="m-lg-4 p-2 p-md-2 p-sm-3 d-lg-flex d-md-block ">
         <div className="col-lg-6 col-md-12 col-sm-12">
           <p className="fw-bold fs-1 col-sm-12 ">
-            Fast and secure Presidential Elections{" "}
-          </p>
-          <p className="fw-normal fs-6">
-            For sure you have made a right choice
+            Fast and secure management of vehicle{" "}
           </p>
           <Link to="/login">
             <button className="btn bg-text-color col-12 col-lg-6 h-25 bg-app-primary">
@@ -47,7 +45,7 @@ export default function Home() {
         </div>
       </div>
       <div className="d-flex justify-content-center align-content-center mt-md-3 ">
-        <p className="d-block mx-auto font-bold fs-4">All candidates</p>
+        <p className="d-block mx-auto font-bold fs-4">All vehicles</p>
       </div>
       <div className="row col-12 mx-0 px-0 col-lg-8  mx-lg-auto  ">
         {isLoading ? (
@@ -57,12 +55,12 @@ export default function Home() {
             </div>
           </div>
         ) : (
-          candidates.map((candidate) => (
-            <Candidate
-              key={candidate._id}
-              candidateName={candidate.candidateName}
-              id={candidate.id}
-              candidateImage={candidate.candidateImage}
+          vehicles.map((vehicle) => (
+            <Vehicle
+              key={vehicle._id}
+              candidateName={vehicle.candidateName}
+              id={vehicle.id}
+              candidateImage={vehicle.candidateImage}
             />
           ))
         )}

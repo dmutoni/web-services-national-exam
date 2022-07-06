@@ -32,10 +32,10 @@ await connectToDb();
 app.get('/', (req, res) => {
     return res.status(200).json({message: 'Welcome to the voting system api'});
 })
-app.use('/api/v1/users',[protect, authorize('Admin')], router);
+app.use('/api/v1/users', router);
 app.use('/api/v1/auth', authRoute);
-app.use('/api/v1/vehicles',[protect, authorize('Admin')],vehicleRouter);
-app.use('/api/v1/car-owners',[protect, authorize('Admin')], carOwnerRouter);
+app.use('/api/v1/vehicles',vehicleRouter);
+app.use('/api/v1/car-owners', carOwnerRouter);
 
 const port = 5050;
 

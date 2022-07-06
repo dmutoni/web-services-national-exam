@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Route, Routes } from "react-router-dom";
@@ -8,22 +8,28 @@ import SignUp from "./pages/signup";
 import Details from "./pages/details";
 import Dashboard from "./pages/dashboard";
 import AddCandidate from "./pages/addCandidate";
-import { AuthProvider } from "./context/GlobalContext";
+import { AppContext, GlobalContext } from "./context/GlobalContext";
+import Protected from './components/ProtectedRoute';
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { user } = useContext(AppContext);
+  if(user){
+    setIsLoggedIn(true)
+  }
 
   return (
-    <AuthProvider>
+    <GlobalContext>
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/details/:id" element={<Details />} />
+        {/* <Route path="/dashboard" element={<Protected  isLoggedIn={isLoggedIn} component={ <Dashboard />}/>} /> */}
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/add-candidate" element={<AddCandidate />} />
       </Routes>
-    </AuthProvider>
+    </GlobalContext>
   );
 }
 
