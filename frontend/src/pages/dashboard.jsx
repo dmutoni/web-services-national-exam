@@ -44,39 +44,41 @@ export default function Dashboard() {
               <th scope="col">Price</th>
               <th scope="col">Vehicle Plate NUmber</th>
               <th scope="col">Owner names</th>
-              <th scope="col" rowSpan='2'>Action</th>
             </tr>
           </thead>
           {isLoading ? (
             <div className="d-flex justify-content-center align-content-center">
               <div className="spinner-border text-primary" role="status">
-                <span className="sr-only">Loading...</span>
+                <span className="sr-only"></span>
               </div>
             </div>
           ) : (
-            vehicles.map((vehicle) => (
-              <tbody>
+            vehicles.map((vehicle, index) => (
+              <tbody key={index + 1}>
                 <tr>
-                  <th scope="row">{vehicle._id}</th>
+                  <th scope="row">{index + 1}</th>
                   <td>{vehicle.chasisNumber}</td>
                   <td>{vehicle.manufactureCompany}</td>
                   <td>{vehicle.manufactureYear}</td>
                   <td>{vehicle.price}</td>
                   <td>{vehicle.vehiclePlateNumber}</td>
                   <td>{vehicle.owner.ownerNames}</td>
-                  <td className="d-flex fex-row gap-2">
-                    <button type="button" className="btn btn-primary">
-                      Edit
-                    </button>
-                    <button type="button" className="btn btn-danger">
-                      Delete
-                    </button>
-                  </td>
                 </tr>
               </tbody>
             ))
           )}
         </table>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-end">
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#">Next</a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   );

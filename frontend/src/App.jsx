@@ -7,9 +7,10 @@ import Login from "./pages/login";
 import SignUp from "./pages/signup";
 import Details from "./pages/details";
 import Dashboard from "./pages/dashboard";
-import AddCandidate from "./pages/addCandidate";
 import { AppContext, GlobalContext } from "./context/GlobalContext";
-import Protected from './components/ProtectedRoute';
+import AddVehicle from './pages/addVehicle';
+import AddCarOwner from './pages/addCarOwner';
+import ViewCarOwners from './pages/viewCarOwners';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -27,7 +28,9 @@ function App() {
         <Route path="/details/:id" element={<Details />} />
         {/* <Route path="/dashboard" element={<Protected  isLoggedIn={isLoggedIn} component={ <Dashboard />}/>} /> */}
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/add-candidate" element={<AddCandidate />} />
+        <Route path="/add-candidate" element={<AddVehicle />} />
+        <Route path="/view-car-owners" element={<ViewCarOwners />} />
+        <Route path="/add-owner" element={<AddCarOwner />} />
       </Routes>
     </GlobalContext>
   );

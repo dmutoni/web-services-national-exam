@@ -1,10 +1,36 @@
-import React from 'react'
+import axios from 'axios';
+import React, {useState} from 'react'
+import { useNavigate } from 'react-router-dom';
+import Sidebar from '../components/sidebar';
 
 export default function AddCarOwner() {
-    const [ownerName, setOwnerName] = useState('');
+    const [ownerNames, setOwnerNames] = useState('');
     const [ownerAddress, setOwnerAddress] = useState('');
-    const [ownerPhone, setOwnerPhone] = useState('');
+    const [ownerPhoneNumber, setOwnerPhone] = useState('');
     const [ownerNationalId, setOwnerNationalId] = useState('');
+
+  const navigate = useNavigate();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    try {
+      const response = await axios.post(
+        "http://localhost:5050/api/v1/car-owners",
+        { ownerNames, ownerAddress, ownerNames, ownerPhoneNumber, ownerNationalId }, {
+              headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        }
+        }
+      );
+      const data = response.data;
+      alert("Car Owner created successfully");
+      navigate("/view-car-owners");
+    } catch (error) {
+      console.log(error);
+      alert("error in creating a vehicle");
+    }
+  };
 
     return (
         <div className="col-12 d-block d-lg-flex flex-row gap-lg-4 ">
@@ -20,7 +46,7 @@ export default function AddCarOwner() {
                   type="text"
                   className="form-control"
                   id="carOwner"
-                  onChange={(e) => setOwnerName(e.target.value)}
+                  onChange={(e) => setOwnerNames(e.target.value)}
                 />
               </div>
               <div className="form-group mb-3">
@@ -29,20 +55,20 @@ export default function AddCarOwner() {
                   type="text"
                   className="form-control"
                   id="ownerNationalId"
-                  onChange={(e) => setManufactureCompany(e.target.value)}
+                  onChange={(e) => setOwnerNationalId(e.target.value)}
                 />
               </div>
               <div className="form-group mb-3">
                 <label htmlFor="ownerPhoneNumber">Owner phone number</label>
-                <input type={"text"} className="form-control" id="ownerPhoneNumber" onChange={(e) => setManufactureYear(e.target.value) } />
+                <input type={"text"} className="form-control" id="ownerPhoneNumber" onChange={(e) => setOwnerPhone(e.target.value) } />
               </div>
-              <div className="form-group">
+              <div className="form-group mb-3">
                 <label htmlFor="ownerAddress">Owner address</label>
                 <input
                   type="text"
                   className="form-control"
                   id="ownerAddress"
-                  onChange={(e) => setModelName(e.target.value)}
+                  onChange={(e) => setOwnerAddress(e.target.value)}
                 />
               </div>
                 <button

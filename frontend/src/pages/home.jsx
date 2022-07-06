@@ -46,30 +46,6 @@ export default function Home() {
           />
         </div>
       </div>
-      <div className="d-flex justify-content-center align-content-center mt-md-3 ">
-        <p className="d-block mx-auto font-bold fs-4">All vehicles</p>
-      </div>
-      <div className="row col-12 mx-0 px-0 col-lg-8  mx-lg-auto  ">
-        {isLoading ? (
-          <div className="d-flex justify-content-center align-content-center">
-            <div className="spinner-border text-primary" role="status">
-              <span className="sr-only">Loading...</span>
-            </div>
-          </div>
-        ) : (
-          vehicles.map((vehicle) => (
-            <Details
-              key={vehicle._id}
-              chasisNumber={vehicle.chasisNumber}
-              manufactureCompany={vehicle.manufactureCompany}
-              manufactureYear={vehicle.manufactureYear}
-              modelName={vehicle.modelName}
-              price={vehicle.price}
-              ownerNames={vehicle.owner.ownerNames}
-            />
-          ))
-        )}
-      </div>
     </div>
   );
 }

@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 
 export default function Sidebar() {
   return (
-    <div className="container-fluid">
+    <div className="container-fluid d-none d-lg-block ">
       <div className="row flex-nowrap">
         <div className=" px-sm-2 px-0 bg-app-primary">
           <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-5 text-white min-vh-100">
@@ -11,7 +12,7 @@ export default function Sidebar() {
               className="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none"
             >
               <span className="fs-5 d-none d-sm-inline bg-text-color fw-bold ">
-                Vote Pro
+                RRA
               </span>
             </a>
             <ul
@@ -19,21 +20,25 @@ export default function Sidebar() {
               id="menu"
             >
               <li className="nav-item mt-5">
-                <a href="#" className="nav-link align-middle px-0">
+                <Link to={"/dashboard"}>
+                <div className="nav-link align-middle px-0">
                   <i className="fs-4 bi-house"></i>{" "}
-                  <span className="ms-1 d-none d-sm-inline bg-text-color">
-                    Candidates
+                  <span className="ms-1 d-none d-sm-inline bg-text-color text-decoration-none ">
+                    Vehicles
                   </span>
-                </a>
+                </div>
+                </Link>
               </li>
 
               <li>
-                <a href="#" className="nav-link px-0 align-middle">
-                  <i className="fs-4 bi-table"></i>{" "}
-                  <span className="ms-1 d-none d-sm-inline bg-text-color ">
-                    Settings
+              <Link to={"/view-car-owners"}>
+                <div className="nav-link align-middle px-0">
+                  <i className="fs-4 bi-house"></i>{" "}
+                  <span className="ms-1 d-none d-sm-inline bg-text-color text-decoration-none">
+                    Car Owners
                   </span>
-                </a>
+                </div>
+                </Link>
               </li>
 
               <li>

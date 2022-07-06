@@ -29,7 +29,7 @@ export default function Login() {
         localStorage.setItem("user", JSON.stringify(user));
         navigate("/dashboard");
     } catch (error) {
-      setError(true);
+      alert('Invalid credentials')
     }
   };
 
@@ -45,7 +45,7 @@ export default function Login() {
       }
 
 
-      <div className="d-block col-12 col-lg-4 mx-auto border  p-5 mt-5">
+      <div className="d-block col-12 col-lg-4 mx-auto border p-5 mt-5">
         <p className="font-bold fs-1">Login</p>
         <form
           onSubmit={

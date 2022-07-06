@@ -10,4 +10,14 @@ const getVehicles = async () => {
     }
 }
 
-export { getVehicles }
+
+const getCarOwners = async () => {
+    try {
+        const response = await axios.get(`${url}/car-owners`);
+        return response.data;
+    } catch(e) {
+        console.log(e);
+    }
+}
+
+export { getVehicles,getCarOwners }
